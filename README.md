@@ -4,7 +4,8 @@
 ## Installation
 
 ```bash
-$ helm install --name godaddy-webhook --namespace cert-manager ./deploy/godaddy-webhook
+$ helm install godaddy-webhook --namespace cert-manager ./deploy/godaddy-webhook --set groupName=<groupname>
+
 ```
 
 ## Issuer
@@ -12,7 +13,7 @@ $ helm install --name godaddy-webhook --namespace cert-manager ./deploy/godaddy-
 ### ClusterIssuer
 
 ```yaml
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-prod
@@ -40,7 +41,7 @@ spec:
 Certificate
 
 ```yaml
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: wildcard-example-com

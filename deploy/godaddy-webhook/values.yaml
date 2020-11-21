@@ -19,6 +19,8 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+port: 8443
+
 service:
   type: ClusterIP
   port: 443
