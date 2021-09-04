@@ -174,7 +174,7 @@ func (c *godaddyDNSProviderSolver) CleanUp(ch *v1alpha1.ChallengeRequest) error 
 		},
 	}
 
-	return c.updateRecords(cfg, baseURL, rec, dnsZone, recordName)
+	return c.deleteRecords(cfg, baseURL, rec, dnsZone, recordName)
 }
 
 // Initialize will be called when the webhook first starts.
@@ -214,6 +214,29 @@ func loadConfig(cfgJSON *extapi.JSON) (godaddyDNSProviderConfig, error) {
 	}
 
 	return cfg, nil
+}
+
+func (c *godaddyDNSProviderSolver) 
+(cfg godaddyDNSProviderConfig, baseURL string, records []DNSRecord, domainZone string, recordName string) error {
+	body, err := json.Marshal(records)
+	if err != nil {
+		return err
+	}
+
+	var resp *http.Response
+	url := fmt.Sprintf("/v1/domains/%s/records/TXT/%s", domainZone, recordName)
+	resp, err = c.makeRequest(cfg, baseURL, http.MethodDelete, url, bytes.NewReader(body))
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		bodyBytes, _ := ioutil.ReadAll(resp.Body)
+		return fmt.Errorf("could not create record %v; Status: %v; Body: %s", string(body), resp.StatusCode, string(bodyBytes))
+	}
+	return nil
 }
 
 func (c *godaddyDNSProviderSolver) updateRecords(cfg godaddyDNSProviderConfig, baseURL string, records []DNSRecord, domainZone string, recordName string) error {
