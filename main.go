@@ -216,8 +216,7 @@ func loadConfig(cfgJSON *extapi.JSON) (godaddyDNSProviderConfig, error) {
 	return cfg, nil
 }
 
-func (c *godaddyDNSProviderSolver) 
-(cfg godaddyDNSProviderConfig, baseURL string, records []DNSRecord, domainZone string, recordName string) error {
+func (c *godaddyDNSProviderSolver) deleteRecords(cfg godaddyDNSProviderConfig, baseURL string, records []DNSRecord, domainZone string, recordName string) error {
 	body, err := json.Marshal(records)
 	if err != nil {
 		return err
