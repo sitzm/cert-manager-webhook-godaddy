@@ -225,7 +225,7 @@ func (c *godaddyDNSProviderSolver) deleteRecords(cfg godaddyDNSProviderConfig, b
 
 	var resp *http.Response
 	url := fmt.Sprintf("/v1/domains/%s/records/TXT/%s", domainZone, recordName)
-	resp, err = c.makeRequest(cfg, baseURL, http.MethodDelete, url, bytes.NewReader(body))
+	resp, err = c.makeRequest(cfg, baseURL, http.MethodDelete, url)
 	if err != nil {
 		return err
 	}
