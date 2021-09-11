@@ -221,6 +221,7 @@ func (c *godaddyDNSProviderSolver) deleteRecords(cfg godaddyDNSProviderConfig, b
 	if err != nil {
 		return err
 	}
+	fmt.Printf("delete configuration %v", cfg)
 
 	var resp *http.Response
 	url := fmt.Sprintf("/v1/domains/%s/records/TXT/%s", domainZone, recordName)
