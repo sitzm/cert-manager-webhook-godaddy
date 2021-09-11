@@ -221,7 +221,7 @@ func (c *godaddyDNSProviderSolver) deleteRecords(cfg godaddyDNSProviderConfig, b
 	if err != nil {
 		return err
 	}
-	fmt.Printf("delete configuration %v", cfg)
+	fmt.Printf("delete record: /v1/domains/%s/records/TXT/%s  ", domainZone, recordName)
 
 	var resp *http.Response
 	url := fmt.Sprintf("/v1/domains/%s/records/TXT/%s", domainZone, recordName)
@@ -234,7 +234,7 @@ func (c *godaddyDNSProviderSolver) deleteRecords(cfg godaddyDNSProviderConfig, b
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := ioutil.ReadAll(resp.Body)
-		return fmt.Errorf("could not create record %v; Status: %v; Body: %s", string(body), resp.StatusCode, string(bodyBytes))
+		return fmt.Errorf("could not delete record %v; Status: %v; Body: %s", string(body), resp.StatusCode, string(bodyBytes))
 	}
 	return nil
 }
