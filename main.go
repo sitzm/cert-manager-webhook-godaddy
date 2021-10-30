@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	extapi "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	extapi "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	//"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 
