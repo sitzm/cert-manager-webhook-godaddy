@@ -1,6 +1,6 @@
 module github.com/inspectorioinc/cert-manager-webhook-godaddy
 
-go 1.13
+go 1.15
 
 require (
 	github.com/jetstack/cert-manager v1.6.0
